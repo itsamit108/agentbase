@@ -1,11 +1,14 @@
+from collections.abc import Generator
 from contextlib import asynccontextmanager
-from typing import Annotated, Generator
+from typing import Annotated
+
 from fastapi import Depends, FastAPI, HTTPException, Query
+from sqlalchemy import Engine
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 
 sqlite_url = "sqlite:///./database.db"
 connect_args = {"check_same_thread": False}
-engine = create_engine(sqlite_url, connect_args=connect_args)
+engine: Engine = create_engine(sqlite_url, connect_args=connect_args)
 
 
 def create_db_and_tables() -> None:
